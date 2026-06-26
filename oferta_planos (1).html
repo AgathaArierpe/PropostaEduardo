@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Estratégica - Eduardo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --orange: #ff6b35;
+            --orange-dark: #e55a2b;
+            --orange-light: #ff7d4d;
+            --white: #ffffff;
+            --gray-light: #f5f5f5;
+            --gray-dark: #1a1a1a;
+            --text: #2a2a2a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Trebuchet MS, sans-serif;
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a2e 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animações */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 107, 53, 0.4);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--black) 0%, #1a1a2e 100%);
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .header-accent {
+            display: inline-block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 100%);
+            margin: 0 auto 20px;
+            border-radius: 2px;
+        }
+
+        .client-info {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 30px;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.7);
+            flex-wrap: wrap;
+        }
+
+        .client-info span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Intro Section */
+        .intro-section {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .intro-section h2 {
+            font-size: 2.2em;
+            color: var(--white);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .intro-section p {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Cards Container */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        /* Card Styling */
+        .plan-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .plan-card:nth-child(1) { animation-delay: 0.3s; }
+        .plan-card:nth-child(2) { animation-delay: 0.4s; }
+        .plan-card:nth-child(3) { animation-delay: 0.5s; }
+
+        .plan-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.25);
+        }
+
+        .plan-card.featured {
+            border: 2px solid var(--orange);
+            transform: scale(1.02);
+        }
+
+        .plan-card.featured:hover {
+            transform: translateY(-12px) scale(1.02);
+        }
+
+        /* Card Header */
+        .card-header {
+            background: linear-gradient(135deg, var(--black) 0%, var(--gray-dark) 100%);
+            padding: 40px 30px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card.featured .card-header {
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .medal {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card-header h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .card-subtitle {
+            font-size: 0.95em;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        /* Price */
+        .price-section {
+            padding: 30px;
+            border-bottom: 1px solid #f0f0f0;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 2.8em;
+            font-weight: 700;
+            color: var(--orange);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .price-period {
+            font-size: 0.9em;
+            color: #999;
+            font-weight: 400;
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 35px 30px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .features-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 0.95em;
+            color: var(--text);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        .features-list li:hover {
+            color: var(--orange);
+            transform: translateX(5px);
+        }
+
+        .check-icon {
+            font-weight: 700;
+            color: var(--orange);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Featured Badge */
+        .featured-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--orange);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            margin-top: 100px;
+            padding-top: 80px;
+            border-top: 2px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .comparison-title {
+            text-align: center;
+            color: var(--white);
+            font-size: 2.2em;
+            margin-bottom: 50px;
+            font-weight: 600;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .comparison-table {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 250px 1fr 1fr 1fr;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-row.header {
+            background: linear-gradient(135deg, var(--black) 0%, var(--gray-dark) 100%);
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .table-cell {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .table-row.header .table-cell {
+            justify-content: center;
+            font-size: 1.05em;
+        }
+
+        .table-row:nth-child(even):not(.header) {
+            background: #f9f9f9;
+        }
+
+        .table-cell.check {
+            text-align: center;
+            color: var(--orange);
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        /* Footer Section */
+        .footer-section {
+            margin-top: 100px;
+            text-align: center;
+            padding: 60px 40px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .footer-section h2 {
+            color: var(--white);
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.05em;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button-large {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            text-decoration: none;
+        }
+
+        .cta-button-large:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .table-row {
+                grid-template-columns: 200px 1fr 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .plan-card.featured {
+                transform: scale(1);
+            }
+
+            .plan-card.featured:hover {
+                transform: translateY(-12px) scale(1);
+            }
+
+            .table-row {
+                grid-template-columns: 150px 1fr 1fr 1fr;
+                font-size: 0.9em;
+            }
+
+            .table-cell {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .header {
+                padding: 60px 20px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .plan-card {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-accent"></div>
+            <h1>Sua Estratégia Digital</h1>
+            <p>Crescimento acelerado através de branding, conteúdo e tráfego pago</p>
+            <div class="client-info">
+                <span>📋 Cliente: <strong>Eduardo</strong></span>
+                <span>📅 Proposta Válida por 7 dias</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Intro Section -->
+        <section class="intro-section">
+            <h2>Escolha o Plano Ideal</h2>
+            <p>Cada plano foi desenvolvido para resolver problemas específicos do seu negócio. Começamos já e você vê resultados em semanas.</p>
+        </section>
+
+        <!-- Plans Cards -->
+        <section class="cards-container">
+            <!-- Bronze Plan -->
+            <div class="plan-card">
+                <div class="card-header">
+                    <span class="medal">🥉</span>
+                    <h3>Bronze</h3>
+                    <p class="card-subtitle">Conteúdo Estratégico + Tráfego Pago</p>
+                </div>
+
+                <div class="price-section">
+                    <div class="price">R$ 2.697</div>
+                    <div class="price-period">por mês</div>
+                </div>
+
+                <div class="card-body">
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> 15 roteiros estratégicos/mês</li>
+                        <li><span class="check-icon">✓</span> Calendário de conteúdo</li>
+                        <li><span class="check-icon">✓</span> Direcionamento das gravações</li>
+                        <li><span class="check-icon">✓</span> Estratégia para conteúdos</li>
+                        <li><span class="check-icon">✓</span> Gestão Meta Ads</li>
+                        <li><span class="check-icon">✓</span> Gestão Google Ads</li>
+                        <li><span class="check-icon">✓</span> Google Meu Negócio</li>
+                        <li><span class="check-icon">✓</span> Análise do site</li>
+                        <li><span class="check-icon">✓</span> Otimizações mensais</li>
+                        <li><span class="check-icon">✓</span> Reunião de alinhamento</li>
+                    </ul>
+                    <button class="cta-button">Escolher Bronze</button>
+                </div>
+            </div>
+
+            <!-- Prata Plan (Featured) -->
+            <div class="plan-card featured">
+                <div class="featured-badge">⭐ Recomendado</div>
+                <div class="card-header">
+                    <span class="medal">🥈</span>
+                    <h3>Prata</h3>
+                    <p class="card-subtitle">Posicionamento e Memorabilidade</p>
+                </div>
+
+                <div class="price-section">
+                    <div class="price">R$ 3.197</div>
+                    <div class="price-period">por mês</div>
+                </div>
+
+                <div class="card-body">
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> Diagnóstico Estratégico completo</li>
+                        <li><span class="check-icon">✓</span> Pesquisa de Público-alvo</li>
+                        <li><span class="check-icon">✓</span> Estratégia de Memorabilidade</li>
+                        <li><span class="check-icon">✓</span> Posicionamento nas Redes</li>
+                        <li><span class="check-icon">✓</span> Estratégia de Conteúdo</li>
+                        <li><span class="check-icon">✓</span> Mais de 15 roteiros/mês</li>
+                        <li><span class="check-icon">✓</span> Calendário Editorial</li>
+                        <li><span class="check-icon">✓</span> Gestão Meta Ads</li>
+                        <li><span class="check-icon">✓</span> Gestão Google Ads</li>
+                        <li><span class="check-icon">✓</span> Estratégias de conversão</li>
+                    </ul>
+                    <button class="cta-button">Escolher Prata</button>
+                </div>
+            </div>
+
+            <!-- Ouro Plan -->
+            <div class="plan-card">
+                <div class="card-header">
+                    <span class="medal">🥇</span>
+                    <h3>Ouro</h3>
+                    <p class="card-subtitle">Branding Estratégico Completo</p>
+                </div>
+
+                <div class="price-section">
+                    <div class="price">R$ 3.597</div>
+                    <div class="price-period">por mês</div>
+                </div>
+
+                <div class="card-body">
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> Tudo do Plano Prata</li>
+                        <li><span class="check-icon">✓</span> Análise SWOT completa</li>
+                        <li><span class="check-icon">✓</span> Identidade Verbal</li>
+                        <li><span class="check-icon">✓</span> Estratégia Comercial</li>
+                        <li><span class="check-icon">✓</span> Planejamento de Marketing</li>
+                        <li><span class="check-icon">✓</span> Experiência da Marca</li>
+                        <li><span class="check-icon">✓</span> Jornada do cliente</li>
+                        <li><span class="check-icon">✓</span> Plano de Crescimento</li>
+                        <li><span class="check-icon">✓</span> Reunião estratégica recorrente</li>
+                        <li><span class="check-icon">✓</span> Gestão completa de tráfego</li>
+                    </ul>
+                    <button class="cta-button">Escolher Ouro</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="comparison-section">
+            <h2 class="comparison-title">Compare os Planos</h2>
+            
+            <div class="comparison-table">
+                <div class="table-row header">
+                    <div class="table-cell">Funcionalidades</div>
+                    <div class="table-cell">Bronze</div>
+                    <div class="table-cell">Prata</div>
+                    <div class="table-cell">Ouro</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Conteúdo Estratégico</strong></div>
+                    <div class="table-cell check">✓</div>
+                    <div class="table-cell check">✓</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Tráfego Pago</strong></div>
+                    <div class="table-cell check">✓</div>
+                    <div class="table-cell check">✓</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Diagnóstico Estratégico</strong></div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell check">✓</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Pesquisa de Público</strong></div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell check">✓</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Memorizabilidade da Marca</strong></div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell check">✓</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Branding Completo</strong></div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Identidade Verbal</strong></div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Estratégia Comercial</strong></div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+
+                <div class="table-row">
+                    <div class="table-cell"><strong>Plano de Crescimento</strong></div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell">-</div>
+                    <div class="table-cell check">✓</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <section class="footer-section">
+            <h2>Pronto para Começar?</h2>
+            <p>Agora é a hora de transformar sua marca em uma máquina de gerar leads e vendas. Selecionou um plano? Vamos conversar sobre os próximos passos.</p>
+            <a href="https://wa.me/5511987229237" class="cta-button-large">💬 Conversar no WhatsApp</a>
+        </section>
+    </div>
+</body>
+</html>
